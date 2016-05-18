@@ -1,4 +1,5 @@
-$(document).ready(function(){
+
+ $(document).ready(function(){
 
   var marker;
   var geocoder = new google.maps.Geocoder();
@@ -40,7 +41,7 @@ if (navigator.geolocation){
 });
 
 function getCurrentLocation(){
-  navigator.geolocation.getCurrentPosition(successCallBack, errorCallback, {timeout 10000});
+  navigator.geolocation.getCurrentPosition(successCallBack, errorCallback, {timeout: 10000});
 
 }
 function successCallback(result){
@@ -49,6 +50,7 @@ function successCallback(result){
   var myLatLng = new google.maps.LatLng (lat,lng);
   var mapOptions = {
     center: myLatLng,
+    zoom: 10,
     draggable:false,
     zoomControl:false,
     scaleControl:false,
@@ -56,7 +58,8 @@ function successCallback(result){
     disableDoubleClickZoom:true,
     mapTypeControl:false
   };
-  var map = new google.maps.Map($$("#map").get(0),mapOptions);
+
+  var map = new google.maps.Map($("#map").get(0),mapOptions);
 }
 
 new google.maps.Marker({
@@ -64,23 +67,24 @@ new google.maps.Marker({
   map: map,
   title: "My Current Location"
 })
-}
+//}
 
-function errorCallback (error){
+function errorCallback(error){
   switch (error.code){
     case error.PERMISSION_DENIED:
-    alert("User location permission denied");
-    break;
+      alert("User location permission denied");
+      break;
     case error.POSITION_UNAVAILABLE:
-    alert("User location unavailable.");
+      alert("User location unavailable.");
+      break;
     case error.PERMISSION_DENIED_TIMEOUT:
-    alert ("User took too long.");
-    break;
+      alert ("User took too long.");
+      break;
     case error.UNKNOWN_ERROR:
-    alert("User an unknown error occured.");
-    break;
+      alert("User an unknown error occured.");
+      break;
     default:
-    alert("An unknown error occured.");
-  break;
+      alert("An unknown error occured.");
+      break;
   }
 }

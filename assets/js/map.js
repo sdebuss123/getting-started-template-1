@@ -6,16 +6,17 @@
   var myLatLng = new google.maps.LatLng(51.0486, -114.0708);
   var mapOptions = {
     center: myLatLng,
-    draggable:false,
-    zoomControl:false,
-    scaleControl:false,
-    scrollwheel:false,
-    disableDoubleClickZoom:true,
-    mapTypeControl:false
+    zoom: 10,
+    draggable: false,
+    zoomControl: false,
+    scaleControl: false,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    mapTypeControl: false
   };
   var map =new google.maps.Map($("#map").get(0), mapOptions);
   var address = "2500 University Dr NW, Calgary, AB T2N 1N4";
-  geocoder.geocode({address:address}, function(results,status){
+  geocoder.geocode({address: address}, function(results,status){
   //Check if status is ok
   if(status==google.maps.GeocoderStatus.OK) {
     //add marker
@@ -29,6 +30,7 @@
     var infoWindow = new google.maps.InfoWindow({
       content: "<b>" + address +"</b>"
     });
+    infoWindow.open(map, marker);
   } else {
     alert(status);
   }
@@ -60,14 +62,14 @@ function successCallback(result){
   };
 
   var map = new google.maps.Map($("#map").get(0),mapOptions);
-}
+
 
 new google.maps.Marker({
   position: myLatLng,
   map: map,
   title: "My Current Location"
 })
-//}
+}
 
 function errorCallback(error){
   switch (error.code){

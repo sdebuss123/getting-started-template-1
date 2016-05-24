@@ -63,34 +63,36 @@ function successCallback(result){
     mapTypeControl:false
   };
 
-  var map = new google.maps.Map($("#map").get(0),mapOptions);
+  var map = new google.maps.Map($("#map").get(0));
 
 
 var currentMarker = new google.maps.Marker({
   position: myLatLng,
   map: map,
   title: "My Current Location"
-})
-var marker,i;
+});
+var marker = i;
 var bounds = new google.maps.LatLngBounds();
-for(i=0, i<$markersArray.length,i++){
-  marker=new google,maps.Marker({
+for(i=0; i<$markersArray.length;i++){
+  marker=new google.maps.Marker({
   position:$markersArray[i].position,
   map:map,
   title:$markersArray[i].title
 });
-var infowindow= new google.maps.infoWindow();
-bounds.extend(,arker.getPosition());
-google.maps.event.addListner(marker,'click'(function(marker,i){
+var infowindow= new google.maps.InfoWindow();
+bounds.extend(marker.getPosition());
+google.maps.event.addListener(marker,'click',(function(marker,i){
   return function(){
     infowindow.setContent("<b>"+
-  $markersArray[i].title+"<b>");
-  infowindow.open(mao,marker);
+  $markersArray[i].title+"</b>");
+  infowindow.open(map,marker);
   }
 })(marker,1));
+
 }
 map.fitBounds(bounds);
 }
+
 //test github
 function errorCallback(error){
   switch (error.code){

@@ -70,7 +70,7 @@ new google.maps.Marker({
   title: "My Current Location"
 })
 }
-
+//test github
 function errorCallback(error){
   switch (error.code){
     case error.PERMISSION_DENIED:

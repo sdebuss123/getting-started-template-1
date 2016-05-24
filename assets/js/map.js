@@ -1,6 +1,7 @@
 
- $(document).ready(function(){
 
+var $markersArray=[];
+ $(document).ready(function(){
   var marker;
   var geocoder = new google.maps.Geocoder();
   var myLatLng = new google.maps.LatLng(51.0486, -114.0708);
@@ -24,6 +25,7 @@
       position: results[0].geometry.location,
       map: map
     });
+    $markersArray.push(marker);
     map.setCenter(results[0].geometry.location);
     map.setZoom(12);
 
@@ -51,8 +53,8 @@ function successCallback(result){
   var lng = result.coords.longitude;
   var myLatLng = new google.maps.LatLng (lat,lng);
   var mapOptions = {
-    center: myLatLng,
-    zoom: 10,
+    //center: myLatLng,
+    //zoom: 10,
     draggable:false,
     zoomControl:false,
     scaleControl:false,
@@ -64,11 +66,30 @@ function successCallback(result){
   var map = new google.maps.Map($("#map").get(0),mapOptions);
 
 
-new google.maps.Marker({
+var currentMarker = new google.maps.Marker({
   position: myLatLng,
   map: map,
   title: "My Current Location"
 })
+var marker,i;
+var bounds = new google.maps.LatLngBounds();
+for(i=0, i<$markersArray.length,i++){
+  marker=new google,maps.Marker({
+  position:$markersArray[i].position,
+  map:map,
+  title:$markersArray[i].title
+});
+var infowindow= new google.maps.infoWindow();
+bounds.extend(,arker.getPosition());
+google.maps.event.addListner(marker,'click'(function(marker,i){
+  return function(){
+    infowindow.setContent("<b>"+
+  $markersArray[i].title+"<b>");
+  infowindow.open(mao,marker);
+  }
+})(marker,1));
+}
+map.fitBounds(bounds);
 }
 //test github
 function errorCallback(error){
